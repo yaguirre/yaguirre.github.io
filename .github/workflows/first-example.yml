@@ -8,7 +8,10 @@ jobs:
             run: echo "Hello World - Github Actions"
         -   name: Checkout
             uses: actions/checkout@v4
-        -   name: List Files
-            run: ls
-        -   name: Read File
-            run: cat README.md
+        -   name: Run multiple commands
+            run: |
+                ls -la
+                mkdir new-folder
+                touch new-folder/file1.txt
+                echo "Hello" > new-folder/file1.txt
+                cat new-folder/file1.txt
