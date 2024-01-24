@@ -6,6 +6,8 @@ jobs:
         steps: 
         -   name: Welcome message
             run: echo "Hello World - Github Actions"
+        -   name: Checkout
+            uses: actions/checkout@v4
         -   name: List Files
             run: ls
         -   name: Read File
