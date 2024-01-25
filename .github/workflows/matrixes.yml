@@ -7,7 +7,7 @@ jobs:
         strategy:
             matrix:
                 os: [ubuntu-latest, ubuntu-20.04]
-                images: [centos, debian, php, consul]
+                images: [centos, debian, php]
         runs-on: ${{ matrix.os }}
         steps:
         -   name: Pull ${{ matrix.images }} on ${{ matrix.os }}
