@@ -8,6 +8,6 @@ jobs:
         -   name: Samuel Greeting
             uses: lob/action_sam_jackson@0.0.2
             with:
-                message: "Hello Yorman, Keep it going! Don't give up bro"
-                token: ${{ secrets.GITHUB_TOKEN }}
+                message: 'Hello Yorman'
+                token: ${{ secrets.TOKEN }}
             
