@@ -1,0 +1,13 @@
+name: Samuel L. Jackson Greeting
+on:
+    workflow_dispatch
+jobs:
+    hello-samuel:
+        runs-on: ubuntu-latest
+        steps:
+        -   name: Samuel Greeting
+            uses: lob/action_sam_jackson@0.0.2
+            with:
+                message: "Hello Yorman, Keep it going! Don't give up bro"
+                token: ${{ secrets.GITHUB_TOKEN }}
+            
