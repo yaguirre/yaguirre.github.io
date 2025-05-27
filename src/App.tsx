@@ -3,10 +3,11 @@ import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
-import Projects from './components/Projects';
+// import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Cursor from './components/Cursor';
+import Certifications from './components/Certifications';
 
 function App() {
   const [showCursor, setShowCursor] = useState(false);
@@ -32,6 +33,7 @@ function App() {
         <main>
           <Hero />
           <About />
+          <Certifications />
           {/* <Projects /> */}
           <Contact />
         </main>

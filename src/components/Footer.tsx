@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
           <div className="mb-8 md:mb-0">
             <a href="#home" className="text-2xl font-bold text-blue-400">Portfolio</a>
             <p className="mt-2 text-gray-400 max-w-md">
-              Creating beautiful, functional digital experiences that leave a lasting impression.
+              Engineering resilient and scalable cloud infrastructure that drives innovation and operational excellence.
             </p>
           </div>
           
@@ -30,9 +30,6 @@ const Footer: React.FC = () => {
             >
               <ChevronUp size={20} />
             </button>
-            <p className="text-gray-400 text-sm">
-              &copy; {currentYear} John Doe. All rights reserved.
-            </p>
           </div>
         </div>
         
