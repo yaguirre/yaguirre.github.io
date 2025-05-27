@@ -57,7 +57,7 @@ const Hero: React.FC = () => {
           </h1>
           <h2 className="text-2xl md:text-3xl text-gray-700 dark:text-gray-300 font-light">
             <span className="inline-block relative overflow-hidden">
-              <span className="animate-typewriter">Frontend Developer</span>
+              <span className="animate-typewriter">SRE - DevOps Engineer</span>
               <span className="animate-blink absolute top-0 right-0 w-[2px] h-full bg-gray-700 dark:bg-gray-300"></span>
             </span>
           </h2>
