@@ -53,7 +53,7 @@ const Hero: React.FC = () => {
             ref={textRef}
             className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400"
           >
-            John Doe
+            Yorman Aguirre
           </h1>
           <h2 className="text-2xl md:text-3xl text-gray-700 dark:text-gray-300 font-light">
             <span className="inline-block relative overflow-hidden">
