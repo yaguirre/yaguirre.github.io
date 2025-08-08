@@ -42,9 +42,9 @@ const Footer: React.FC = () => {
             <a href="#projects" className="text-gray-400 hover:text-blue-400 transition-colors duration-300">Projects</a>
             <a href="#contact" className="text-gray-400 hover:text-blue-400 transition-colors duration-300">Contact</a>
           </nav>
-          
+
           <div className="flex space-x-4">
-            <a 
+            <a
               href="https://www.linkedin.com/in/yaguirre/" 
               className="text-gray-400 hover:text-blue-400 transition-colors duration-300"
               aria-label="LinkedIn"
@@ -64,6 +64,7 @@ const Footer: React.FC = () => {
             </a>
           </div>
         </div>
+        <p className="mt-8 text-center text-sm text-gray-400">&copy; {currentYear} Portfolio. All rights reserved.</p>
       </div>
     </footer>
   );

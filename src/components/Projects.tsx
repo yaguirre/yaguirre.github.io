@@ -13,7 +13,6 @@ interface Project {
 
 const Projects: React.FC = () => {
   const [filter, setFilter] = useState<string>('all');
-  const [hoveredId, setHoveredId] = useState<number | null>(null);
   
   const projects: Project[] = [
     {
@@ -112,8 +111,6 @@ const Projects: React.FC = () => {
               key={project.id}
               className="group bg-white dark:bg-gray-800 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 transform hover:-translate-y-1 animate-on-scroll opacity-0"
               style={{ transitionDelay: `${index * 100}ms` }}
-              onMouseEnter={() => setHoveredId(project.id)}
-              onMouseLeave={() => setHoveredId(null)}
             >
               <div className="relative overflow-hidden h-64">
                 <img
