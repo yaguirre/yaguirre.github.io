@@ -4,7 +4,7 @@ import { Award } from 'lucide-react';
 const Certifications: React.FC = () => {
   const certifications = [
     {
-      title: 'AWS Certified Solutions Architect Associate',
+      title: 'AWS Certified Solutions - Architect Associate',
       icon: <Award className="w-8 h-8 text-blue-500 dark:text-blue-400" />,
     },
     {
@@ -12,7 +12,7 @@ const Certifications: React.FC = () => {
       icon: <Award className="w-8 h-8 text-blue-500 dark:text-blue-400" />,
     },
     {
-      title: 'AWS Certified SysAdmin Associate',
+      title: 'AWS Certified SysOps Administrator - Associate',
       icon: <Award className="w-8 h-8 text-blue-500 dark:text-blue-400" />,
     },
     {
@@ -20,7 +20,7 @@ const Certifications: React.FC = () => {
       icon: <Award className="w-8 h-8 text-blue-500 dark:text-blue-400" />,
     },
     {
-      title: 'AWS Certified Data Engineer',
+      title: 'AWS Certified Data Engineer - Associate',
       icon: <Award className="w-8 h-8 text-blue-500 dark:text-blue-400" />,
     },
   ];

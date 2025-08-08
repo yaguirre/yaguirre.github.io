@@ -9,12 +9,12 @@ const About: React.FC = () => {
       description: 'Managing and optimizing scalable cloud infrastructures on AWS for high availability and security.'
     },
     { 
-      name: 'Infrastrcture as Code (IaC)', 
+      name: 'Infrastructure as Code (IaC)', 
       icon: <PenTool className="w-6 h-6" />, 
       description: 'Automating infrastructure provisioning using Terraform and Terragrunt for modular and repeatable deployments.'
     },
     { 
-      name: 'Kubernetes & Cointainerization', 
+      name: 'Kubernetes & Containerization', 
       icon: <LineChart className="w-6 h-6" />, 
       description: 'Deploying and orchestrating containerized applications on Kubernetes clusters with Helm and Docker.'
     },
