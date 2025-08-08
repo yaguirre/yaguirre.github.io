@@ -3,7 +3,7 @@ import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
-// import Projects from './components/Projects';
+import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Cursor from './components/Cursor';
@@ -12,7 +12,6 @@ import Certifications from './components/Certifications';
 function App() {
   const [showCursor, setShowCursor] = useState(false);
 
-  // Only show custom cursor on devices that likely have a mouse
   React.useEffect(() => {
     const mediaQuery = window.matchMedia('(hover: hover)');
     setShowCursor(mediaQuery.matches);
@@ -27,14 +26,14 @@ function App() {
 
   return (
     <ThemeProvider>
-      <div className="relative min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+      <div className="relative min-h-screen bg-primary text-text transition-colors duration-300">
         {showCursor && <Cursor />}
         <Navbar />
         <main>
           <Hero />
           <About />
           <Certifications />
-          {/* <Projects /> */}
+          <Projects />
           <Contact />
         </main>
         <Footer />
