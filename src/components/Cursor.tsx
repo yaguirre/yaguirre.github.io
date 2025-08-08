@@ -13,13 +13,14 @@ const Cursor: React.FC = () => {
 
     const handleMouseDown = () => setClicked(true);
     const handleMouseUp = () => setClicked(false);
+    const handleLinkEnter = () => setLinkHovered(true);
+    const handleLinkLeave = () => setLinkHovered(false);
 
-    const handleLinkHoverEvents = () => {
-      document.querySelectorAll('a, button').forEach(el => {
-        el.addEventListener('mouseenter', () => setLinkHovered(true));
-        el.addEventListener('mouseleave', () => setLinkHovered(false));
-      });
-    };
+    const linkElements = document.querySelectorAll('a, button');
+    linkElements.forEach(el => {
+      el.addEventListener('mouseenter', handleLinkEnter);
+      el.addEventListener('mouseleave', handleLinkLeave);
+    });
 
     const handleMouseLeave = () => setHidden(true);
     const handleMouseEnter = () => setHidden(false);
@@ -29,7 +30,6 @@ const Cursor: React.FC = () => {
     document.addEventListener('mouseup', handleMouseUp);
     document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('mouseenter', handleMouseEnter);
-    handleLinkHoverEvents();
 
     return () => {
       document.removeEventListener('mousemove', updatePosition);
@@ -37,6 +37,10 @@ const Cursor: React.FC = () => {
       document.removeEventListener('mouseup', handleMouseUp);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
+      linkElements.forEach(el => {
+        el.removeEventListener('mouseenter', handleLinkEnter);
+        el.removeEventListener('mouseleave', handleLinkLeave);
+      });
     };
   }, []);
 
