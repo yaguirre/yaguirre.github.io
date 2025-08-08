@@ -8,18 +8,10 @@ export default {
         sans: ['Inter', 'system-ui', 'sans-serif'],
       },
       colors: {
-        blue: {
-          50: '#eff6ff',
-          100: '#dbeafe',
-          200: '#bfdbfe',
-          300: '#93c5fd',
-          400: '#60a5fa',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
-          800: '#1e40af',
-          900: '#1e3a8a',
-        },
+        primary: '#264653',
+        text: '#E0E0E0',
+        secondary: '#2A9D8F',
+        accent: '#E9C46A',
       },
       animation: {
         'bounce': 'bounce 1.5s infinite',
