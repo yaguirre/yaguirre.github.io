@@ -15,8 +15,10 @@ interface SkillCategory {
 }
 
 const Skills: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
+  const [statsVisible, setStatsVisible] = useState(false);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const statsRef = useRef<HTMLDivElement>(null);
 
   const skillCategories: SkillCategory[] = [
     {
@@ -111,28 +113,61 @@ const Skills: React.FC = () => {
   ];
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const cardObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          // Only animate when scrolling into view (scroll down)
           if (entry.isIntersecting) {
-            setIsVisible(true);
+            const index = cardRefs.current.indexOf(entry.target as HTMLDivElement);
+            if (index !== -1) {
+              setVisibleCards((prev) => new Set(prev).add(index));
+            }
           }
         });
       },
-      { threshold: 0.1 }
+      {
+        threshold: 0.3, // Trigger when 30% of card is visible
+        rootMargin: '0px'
+      }
     );
 
-    const currentRef = sectionRef.current;
-    if (currentRef) {
-      observer.observe(currentRef);
+    const statsObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !statsVisible) {
+            setStatsVisible(true);
+          }
+        });
+      },
+      {
+        threshold: 0.3,
+        rootMargin: '0px'
+      }
+    );
+
+    // Observe each card individually
+    cardRefs.current.forEach((card) => {
+      if (card) {
+        cardObserver.observe(card);
+      }
+    });
+
+    // Observe stats section
+    if (statsRef.current) {
+      statsObserver.observe(statsRef.current);
     }
 
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
+      cardRefs.current.forEach((card) => {
+        if (card) {
+          cardObserver.unobserve(card);
+        }
+      });
+      if (statsRef.current) {
+        statsObserver.unobserve(statsRef.current);
       }
     };
-  }, []);
+  }, [statsVisible]);
 
   const getColorClasses = (color: string) => {
     const colors: Record<string, { bg: string; text: string; progress: string; glow: string }> = {
@@ -191,7 +226,6 @@ const Skills: React.FC = () => {
   return (
     <section
       id="skills"
-      ref={sectionRef}
       className="py-20 px-6 bg-white dark:bg-gray-900 transition-colors duration-300"
     >
       <div className="container mx-auto max-w-7xl">
@@ -209,14 +243,16 @@ const Skills: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {skillCategories.map((category, categoryIndex) => {
             const colorClasses = getColorClasses(category.color);
+            const isCardVisible = visibleCards.has(categoryIndex);
             return (
               <div
                 key={category.title}
+                ref={(el) => (cardRefs.current[categoryIndex] = el)}
                 className="bg-gray-50 dark:bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
                 style={{
-                  opacity: isVisible ? 1 : 0,
-                  transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-                  transition: `all 0.6s ease-out ${categoryIndex * 100}ms`
+                  opacity: isCardVisible ? 1 : 0,
+                  transform: isCardVisible ? 'translateY(0)' : 'translateY(20px)',
+                  transition: 'all 0.5s ease-out'
                 }}
               >
                 {/* Category Header */}
@@ -243,10 +279,10 @@ const Skills: React.FC = () => {
                       </div>
                       <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                         <div
-                          className={`h-full ${colorClasses.progress} rounded-full transition-all duration-1000 ease-out`}
+                          className={`h-full ${colorClasses.progress} rounded-full transition-all duration-700 ease-out`}
                           style={{
-                            width: isVisible ? `${skill.level}%` : '0%',
-                            transitionDelay: `${categoryIndex * 100 + skillIndex * 50}ms`
+                            width: isCardVisible ? `${skill.level}%` : '0%',
+                            transitionDelay: `${skillIndex * 50}ms`
                           }}
                         ></div>
                       </div>
@@ -259,20 +295,48 @@ const Skills: React.FC = () => {
         </div>
 
         {/* Summary Stats */}
-        <div className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="text-center p-6 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-xl shadow-lg transform hover:scale-105 transition-transform">
+        <div ref={statsRef} className="mt-16 grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div
+            className="text-center p-6 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-600"
+            style={{
+              opacity: statsVisible ? 1 : 0,
+              transform: statsVisible ? 'scale(1)' : 'scale(0.9)',
+              transition: 'all 0.5s ease-out 0ms'
+            }}
+          >
             <div className="text-3xl font-bold text-white mb-2">15+</div>
             <div className="text-blue-100 text-sm">Cloud Technologies</div>
           </div>
-          <div className="text-center p-6 bg-gradient-to-br from-purple-500 to-purple-600 dark:from-purple-600 dark:to-purple-700 rounded-xl shadow-lg transform hover:scale-105 transition-transform">
+          <div
+            className="text-center p-6 bg-gradient-to-br from-purple-500 to-purple-600 dark:from-purple-600 dark:to-purple-700 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-600"
+            style={{
+              opacity: statsVisible ? 1 : 0,
+              transform: statsVisible ? 'scale(1)' : 'scale(0.9)',
+              transition: 'all 0.5s ease-out 100ms'
+            }}
+          >
             <div className="text-3xl font-bold text-white mb-2">10+</div>
             <div className="text-purple-100 text-sm">DevOps Tools</div>
           </div>
-          <div className="text-center p-6 bg-gradient-to-br from-green-500 to-green-600 dark:from-green-600 dark:to-green-700 rounded-xl shadow-lg transform hover:scale-105 transition-transform">
+          <div
+            className="text-center p-6 bg-gradient-to-br from-green-500 to-green-600 dark:from-green-600 dark:to-green-700 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-600"
+            style={{
+              opacity: statsVisible ? 1 : 0,
+              transform: statsVisible ? 'scale(1)' : 'scale(0.9)',
+              transition: 'all 0.5s ease-out 200ms'
+            }}
+          >
             <div className="text-3xl font-bold text-white mb-2">5+</div>
             <div className="text-green-100 text-sm">Years Experience</div>
           </div>
-          <div className="text-center p-6 bg-gradient-to-br from-orange-500 to-orange-600 dark:from-orange-600 dark:to-orange-700 rounded-xl shadow-lg transform hover:scale-105 transition-transform">
+          <div
+            className="text-center p-6 bg-gradient-to-br from-orange-500 to-orange-600 dark:from-orange-600 dark:to-orange-700 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-600"
+            style={{
+              opacity: statsVisible ? 1 : 0,
+              transform: statsVisible ? 'scale(1)' : 'scale(0.9)',
+              transition: 'all 0.5s ease-out 300ms'
+            }}
+          >
             <div className="text-3xl font-bold text-white mb-2">4+</div>
             <div className="text-orange-100 text-sm">Programming Languages</div>
           </div>
