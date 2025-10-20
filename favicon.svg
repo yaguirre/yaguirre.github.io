@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#60a5fa;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#a78bfa;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background rounded square -->
+  <rect width="128" height="128" rx="24" fill="url(#grad)"/>
+
+  <!-- Initials YA -->
+  <text
+    x="64"
+    y="88"
+    font-family="system-ui, -apple-system, sans-serif"
+    font-size="56"
+    font-weight="700"
+    fill="white"
+    text-anchor="middle"
+    letter-spacing="-2">YA</text>
+</svg>
