@@ -1,29 +1,6 @@
 import React from 'react';
-import { Code, PenTool, LineChart, Users } from 'lucide-react';
 
 const About: React.FC = () => {
-  const skills = [
-    { 
-      name: 'Cloud Infrastructure Management (AWS)', 
-      icon: <Code className="w-6 h-6" />, 
-      description: 'Managing and optimizing scalable cloud infrastructures on AWS for high availability and security.'
-    },
-    { 
-      name: 'Infrastructure as Code (IaC)', 
-      icon: <PenTool className="w-6 h-6" />, 
-      description: 'Automating infrastructure provisioning using Terraform and Terragrunt for modular and repeatable deployments.'
-    },
-    { 
-      name: 'Kubernetes & Containerization', 
-      icon: <LineChart className="w-6 h-6" />, 
-      description: 'Deploying and orchestrating containerized applications on Kubernetes clusters with Helm and Docker.'
-    },
-    { 
-      name: 'CI/CD Implementation & Automation', 
-      icon: <Users className="w-6 h-6" />, 
-      description: 'Implementing robust CI/CD pipelines with tools like GitHub Actions and ArgoCD to streamline delivery.'
-    }
-  ];
 
   return (
     <section id="about" className="py-20 px-6 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
@@ -92,23 +69,6 @@ const About: React.FC = () => {
               </div>
             </div>
           </div>
-        </div>
-
-        <h3 className="text-2xl font-semibold mb-8 text-center text-gray-900 dark:text-white">My Skills</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {skills.map((skill, index) => (
-            <div 
-              key={skill.name}
-              className="bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 animate-on-scroll opacity-0"
-              style={{ transitionDelay: `${(index + 1) * 100}ms` }}
-            >
-              <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 mb-4">
-                {skill.icon}
-              </div>
-              <h4 className="text-xl font-medium mb-2 text-gray-900 dark:text-white">{skill.name}</h4>
-              <p className="text-gray-600 dark:text-gray-400">{skill.description}</p>
-            </div>
-          ))}
         </div>
       </div>
     </section>
