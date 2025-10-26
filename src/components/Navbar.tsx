@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
+import { Menu, X } from 'lucide-react';
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { isDark, toggleTheme } = useTheme();
 
   const navItems = [
     { name: 'Home', href: '#home' },
@@ -33,18 +31,18 @@ const Navbar: React.FC = () => {
   };
 
   return (
-    <header 
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm shadow-md' 
+        isScrolled
+          ? 'bg-gray-900/90 backdrop-blur-sm shadow-md'
           : 'bg-transparent'
       }`}
     >
       <nav className="container mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
-          <a 
-            href="#home" 
-            className="text-2xl font-bold text-blue-600 dark:text-blue-400 cursor-pointer"
+          <a
+            href="#home"
+            className="text-2xl font-bold text-blue-400 cursor-pointer"
             onClick={(e) => {
               e.preventDefault();
               scrollToSection('#home');
@@ -60,7 +58,7 @@ const Navbar: React.FC = () => {
                 <li key={item.name}>
                   <a
                     href={item.href}
-                    className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+                    className="text-gray-300 hover:text-blue-400 transition-colors duration-300"
                     onClick={(e) => {
                       e.preventDefault();
                       scrollToSection(item.href);
@@ -71,27 +69,13 @@ const Navbar: React.FC = () => {
                 </li>
               ))}
             </ul>
-            <button 
-              onClick={toggleTheme}
-              className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
-              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex items-center md:hidden space-x-4">
-            <button 
-              onClick={toggleTheme}
-              className="p-2 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors duration-300"
-              aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            >
-              {isDark ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
+          <div className="flex items-center md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none"
+              className="text-gray-300 hover:text-blue-400 focus:outline-none"
               aria-label="Toggle menu"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -101,7 +85,7 @@ const Navbar: React.FC = () => {
 
         {/* Mobile menu */}
         <div
-          className={`md:hidden fixed inset-0 bg-white dark:bg-gray-900 flex flex-col justify-center items-center space-y-8 transition-opacity duration-300 ${
+          className={`md:hidden fixed inset-0 bg-gray-900 flex flex-col justify-center items-center space-y-8 transition-opacity duration-300 ${
             isOpen ? 'opacity-100 z-40' : 'opacity-0 -z-10'
           }`}
         >
@@ -109,7 +93,7 @@ const Navbar: React.FC = () => {
             <a
               key={item.name}
               href={item.href}
-              className="text-2xl font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-300"
+              className="text-2xl font-medium text-gray-300 hover:text-blue-400 transition-colors duration-300"
               onClick={(e) => {
                 e.preventDefault();
                 scrollToSection(item.href);
