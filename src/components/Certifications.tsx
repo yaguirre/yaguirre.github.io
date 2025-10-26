@@ -52,7 +52,8 @@ const Certifications: React.FC = () => {
       detailedDescription: 'Earners of this certification have a comprehensive understanding of application lifecycle management. They demonstrated proficiency in writing applications with AWS service APIs, AWS CLI, and SDKs; using containers; and deploying with a CI/CD pipeline. Badge owners are able to develop, deploy, and debug cloud-based applications that follow AWS best practices.',
       level: 'Associate',
       issuer: 'Amazon Web Services',
-      expired: true
+      expired: true,
+      expirationDate: 'June 20, 2025'
     },
     {
       title: 'AWS Certified Data Engineer',
@@ -93,11 +94,13 @@ const Certifications: React.FC = () => {
       detailedDescription: 'Earners of the HashiCorp Certified: Terraform Associate certification know the basic concepts, skills, and use cases associated with open source HashiCorp Terraform. They understand which enterprise features exist and what can and cannot be done using the free features in Terraform Community Edition. Badge holders have experience in Terraform for production use cases beyond the professional experience.',
       level: 'Associate',
       issuer: 'HashiCorp',
-      expired: true
+      expired: true,
+      expirationDate: 'April 03, 2024'
     },
   ];
 
   const activeCertifications = certifications.filter(cert => !cert.expired);
+  const expiredCertifications = certifications.filter(cert => cert.expired);
 
   return (
     <>
@@ -121,24 +124,18 @@ const Certifications: React.FC = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {certifications.map((cert, index) => (
+        {/* Active Certifications */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+          {activeCertifications.map((cert) => (
             <button
               key={cert.title}
               onClick={() => handleCertificationClick(cert)}
-              className={`group bg-primary/10 backdrop-blur-sm border p-4 rounded-xl transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl animate-on-scroll opacity-0 cursor-pointer text-left w-full ${
-                cert.expired
-                  ? 'border-gray-400/20 hover:border-gray-400/40 opacity-60'
-                  : 'border-secondary/20 hover:border-accent/50'
-              }`}
-              style={{ animationDelay: `${index * 100}ms` }}
+              className="group bg-primary/10 backdrop-blur-sm border p-4 rounded-xl transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl cursor-pointer text-left w-full border-secondary/20 hover:border-accent/50"
               aria-label={`View details for ${cert.title}`}
             >
               <div className="relative">
                 <div className="flex items-start space-x-3 mb-3">
-                  <div className={`flex-shrink-0 rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300 ${
-                    cert.expired ? 'opacity-60' : ''
-                  }`}>
+                  <div className="flex-shrink-0 rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300">
                     <img
                       src={cert.logo}
                       alt={`${cert.title} badge`}
@@ -148,36 +145,20 @@ const Certifications: React.FC = () => {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <Award className="w-3.5 h-3.5 text-accent flex-shrink-0" />
-                      <span className={`text-xs font-semibold uppercase tracking-wider ${
-                        cert.expired ? 'text-gray-400' : 'text-accent'
-                      }`}>
+                      <span className="text-xs font-semibold uppercase tracking-wider text-accent">
                         {cert.level}
                       </span>
                     </div>
-                    <h3 className={`text-base font-bold leading-tight ${
-                      cert.expired ? 'text-text/50' : 'text-text'
-                    }`}>
+                    <h3 className="text-base font-bold leading-tight text-text">
                       {cert.title}
                     </h3>
                     {cert.issuer && (
-                      <p className={`text-xs mt-1 ${
-                        cert.expired ? 'text-text/30' : 'text-text/50'
-                      }`}>
+                      <p className="text-xs mt-1 text-text/50">
                         {cert.issuer}
                       </p>
                     )}
                   </div>
                 </div>
-
-                {/* Expired badge */}
-                {cert.expired && (
-                  <div className="mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 bg-red-500/10 border border-red-500/30 rounded-full">
-                    <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></div>
-                    <span className="text-xs font-medium text-red-500">
-                      Expired
-                    </span>
-                  </div>
-                )}
 
                 {/* Decorative elements */}
                 <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-accent/10 to-secondary/10 rounded-full -translate-y-2 translate-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -186,6 +167,63 @@ const Certifications: React.FC = () => {
             </button>
           ))}
         </div>
+
+        {/* Expired Certifications Section */}
+        {expiredCertifications.length > 0 && (
+          <div className="mb-12">
+            <h3 className="text-xl font-semibold text-text/70 mb-6 text-center">Expired Certifications</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+              {expiredCertifications.map((cert) => (
+                <button
+                  key={cert.title}
+                  onClick={() => handleCertificationClick(cert)}
+                  className="group bg-primary/10 backdrop-blur-sm border p-4 rounded-xl transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl cursor-pointer text-left w-full border-gray-400/20 hover:border-gray-400/40 opacity-60"
+                  aria-label={`View details for ${cert.title}`}
+                >
+                  <div className="relative">
+                    <div className="flex items-start space-x-3 mb-3">
+                      <div className="flex-shrink-0 rounded-xl shadow-lg group-hover:scale-110 transition-transform duration-300 opacity-60">
+                        <img
+                          src={cert.logo}
+                          alt={`${cert.title} badge`}
+                          className="w-16 h-16 object-contain"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <Award className="w-3.5 h-3.5 text-accent flex-shrink-0" />
+                          <span className="text-xs font-semibold uppercase tracking-wider text-gray-400">
+                            {cert.level}
+                          </span>
+                        </div>
+                        <h3 className="text-base font-bold leading-tight text-text/50">
+                          {cert.title}
+                        </h3>
+                        {cert.issuer && (
+                          <p className="text-xs mt-1 text-text/30">
+                            {cert.issuer}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Expired badge with date */}
+                    <div className="mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 bg-red-500/10 border border-red-500/30 rounded-full">
+                      <div className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse"></div>
+                      <span className="text-xs font-medium text-red-500">
+                        Expired on {cert.expirationDate}
+                      </span>
+                    </div>
+
+                    {/* Decorative elements */}
+                    <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-accent/10 to-secondary/10 rounded-full -translate-y-2 translate-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-secondary/5 to-accent/5 rounded-full translate-y-2 -translate-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-12">
           <div className="inline-flex items-center gap-2 px-6 py-3 bg-accent/10 border border-accent/20 rounded-full">
