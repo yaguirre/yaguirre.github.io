@@ -44,22 +44,50 @@ const Contact: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (validateForm()) {
       setFormStatus('submitting');
-      
-      // Simulate form submission
-      setTimeout(() => {
-        setFormStatus('success');
-        setFormState({ name: '', email: '', message: '' });
-        
-        // Reset form status after 3 seconds
+
+      try {
+        const response = await fetch('https://formspree.io/f/xgvpvlpg', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formState.name,
+            email: formState.email,
+            message: formState.message,
+          }),
+        });
+
+        if (response.ok) {
+          setFormStatus('success');
+          setFormState({ name: '', email: '', message: '' });
+
+          // Reset form status after 5 seconds
+          setTimeout(() => {
+            setFormStatus('idle');
+          }, 5000);
+        } else {
+          setFormStatus('error');
+
+          // Reset error status after 5 seconds
+          setTimeout(() => {
+            setFormStatus('idle');
+          }, 5000);
+        }
+      } catch (error) {
+        console.error('Form submission error:', error);
+        setFormStatus('error');
+
+        // Reset error status after 5 seconds
         setTimeout(() => {
           setFormStatus('idle');
-        }, 3000);
-      }, 1500);
+        }, 5000);
+      }
     }
   };
 
@@ -233,11 +261,13 @@ const Contact: React.FC = () => {
                   type="submit"
                   disabled={formStatus === 'submitting'}
                   className={`w-full py-3 px-6 rounded-lg font-medium text-white flex items-center justify-center transition-all duration-300 ${
-                    formStatus === 'submitting' 
-                      ? 'bg-blue-400 dark:bg-blue-500 cursor-not-allowed' 
+                    formStatus === 'submitting'
+                      ? 'bg-blue-400 dark:bg-blue-500 cursor-not-allowed'
                       : formStatus === 'success'
                         ? 'bg-green-500 dark:bg-green-600 hover:bg-green-600 dark:hover:bg-green-700'
-                        : 'bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600'
+                        : formStatus === 'error'
+                          ? 'bg-red-500 dark:bg-red-600 hover:bg-red-600 dark:hover:bg-red-700'
+                          : 'bg-blue-600 dark:bg-blue-500 hover:bg-blue-700 dark:hover:bg-blue-600'
                   }`}
                 >
                   {formStatus === 'submitting' ? (
@@ -252,6 +282,11 @@ const Contact: React.FC = () => {
                     <>
                       <Check size={18} className="mr-2" />
                       Message Sent!
+                    </>
+                  ) : formStatus === 'error' ? (
+                    <>
+                      <AlertCircle size={18} className="mr-2" />
+                      Failed to Send
                     </>
                   ) : (
                     <>
