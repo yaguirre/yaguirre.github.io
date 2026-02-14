@@ -50,8 +50,11 @@ const Hero: React.FC = () => {
               <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-blue-400 shadow-2xl">
                 <img
                   src={`${import.meta.env.BASE_URL}profile.jpeg`}
-                  alt="Yorman Aguirre"
+                  alt="Yorman Aguirre - Senior DevOps and Site Reliability Engineer based in Medellín, Colombia"
                   className="w-full h-full object-cover"
+                  width="320"
+                  height="320"
+                  loading="eager"
                 />
               </div>
               {/* Decorative ring */}
