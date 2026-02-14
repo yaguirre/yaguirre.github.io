@@ -1,0 +1,13 @@
+# robots.txt for yormanaguirre.com
+User-agent: *
+Allow: /
+
+# Allow Googlebot and Bingbot
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Sitemap location
+Sitemap: https://yormanaguirre.com/sitemap.xml
